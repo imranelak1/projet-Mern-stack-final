@@ -67,19 +67,19 @@ const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         
-        // Check if user exists
+       
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ error: 'Invalid email or password' });
         }
 
-        // Compare password
+       
         const match = await comparePassword(password, user.password);
         if (!match) {
             return res.status(400).json({ error: 'Invalid email or password' });
         }
 
-        // Generate JWT token
+        
         const token = jwt.sign(
             { 
                 id: user._id,
